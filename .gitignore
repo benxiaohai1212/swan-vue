@@ -45,3 +45,4 @@ nbdist/
 !*/build/*.xml
 /app/src/assets/
 /app/release/
+.vscode/
