@@ -46,3 +46,4 @@ nbdist/
 /app/src/assets/
 /app/release/
 .vscode/
+frontend/node
