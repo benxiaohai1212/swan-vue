@@ -65,7 +65,7 @@
       <el-table-column prop="orderNum" label="排序" width="60"></el-table-column>
       <el-table-column prop="perms" label="权限标识" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
-      <el-table-column prop="status" label="状态" width="80">
+      <el-table-column prop="status" align="center" label="状态" width="80">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
         </template>
@@ -274,10 +274,10 @@
 </template>
 
 <script>
-import {addMenu, delMenu, getMenu, listMenu, updateMenu} from "@/api/system/menu";
+import { addMenu, delMenu, getMenu, listMenu, updateMenu } from "@/api/system/menu";
+import IconSelect from "@/components/IconSelect";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
-import IconSelect from "@/components/IconSelect";
 
 export default {
   name: "Menu",

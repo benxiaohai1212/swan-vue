@@ -123,7 +123,7 @@
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
-      <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
+      <el-table-column label="备注" align="left" prop="remark" :show-overflow-tooltip="true" />
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -188,7 +188,7 @@
 </template>
 
 <script>
-import {addType, delType, getType, listType, refreshCache, updateType} from "@/api/system/dict/type";
+import { addType, delType, getType, listType, refreshCache, updateType } from "@/api/system/dict/type";
 
 export default {
   name: "Dict",
