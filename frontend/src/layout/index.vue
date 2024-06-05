@@ -7,7 +7,9 @@
         <navbar/>
         <tags-view v-if="needTagsView"/>
       </div>
-      <app-main/>
+      <div class="body-container">
+        <app-main/>
+      </div>
       <right-panel>
         <settings/>
       </right-panel>
@@ -16,11 +18,11 @@
 </template>
 
 <script>
-import RightPanel from '@/components/RightPanel'
-import {AppMain, Navbar, Settings, Sidebar, TagsView} from './components'
-import ResizeMixin from './mixin/ResizeHandler'
-import {mapState} from 'vuex'
 import variables from '@/assets/styles/variables.scss'
+import RightPanel from '@/components/RightPanel'
+import { mapState } from 'vuex'
+import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
+import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
   name: 'Layout',
@@ -72,6 +74,10 @@ export default {
     height: 100%;
     width: 100%;
 
+    .body-container {
+      background-color: #F3F9FF;
+      padding: 10px;
+    }
     &.mobile.openSidebar {
       position: fixed;
       top: 0;

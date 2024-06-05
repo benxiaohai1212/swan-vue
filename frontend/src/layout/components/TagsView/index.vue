@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import ScrollPane from './ScrollPane'
-import path from 'path'
+import path from 'path';
+import ScrollPane from './ScrollPane';
 
 export default {
     components: {ScrollPane},
@@ -79,8 +79,9 @@ export default {
         activeStyle(tag) {
             if (!this.isActive(tag)) return {};
             return {
-                "background-color": this.theme,
-                "border-color": this.theme
+                // "background-color": this.theme,
+                // "border-color": this.theme
+                "background": 'linear-gradient(to bottom, #FFFFFF 1%, #F3F9FF 99%)',
             };
         },
         isAffix(tag) {
@@ -254,9 +255,10 @@ export default {
             cursor: pointer;
             height: 28px;
             line-height: 28px;
-            border: 1px solid #efefef;
+            // border: 1px solid #efefef;
+            border: 1px solid transparent;
             color: #495060;
-            background: #fff;
+            // background: #fff;
             padding: 0 8px;
             font-size: 12px;
             margin-left: 5px;
@@ -273,19 +275,23 @@ export default {
             }
 
             &.active {
-                background-color: #42b983;
-                color: #fff;
-                border-color: #42b983;
+                // background-color: #42b983;
+                // color: #fff;
+                // border-color: #42b983;
+                color: #495060;
+                border-width: 1px 1px 0px 1px;
+                border-color: #d8dce5;
+                border-style: solid;
 
                 &::before {
-                    content: '';
+                    // content: '';
                     background: #fff;
-                    display: inline-block;
-                    width: 8px;
-                    height: 8px;
-                    border-radius: 50%;
-                    position: relative;
-                    margin-right: 2px;
+                    // display: inline-block;
+                    // width: 8px;
+                    // height: 8px;
+                    // border-radius: 50%;
+                    // position: relative;
+                    // margin-right: 2px;
                 }
             }
         }

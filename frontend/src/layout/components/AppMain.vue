@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import iframeToggle from "./IframeToggle/index"
+import iframeToggle from "./IframeToggle/index";
 
 export default {
   name: 'AppMain',
@@ -33,6 +33,7 @@ export default {
   width: 100%;
   position: relative;
   overflow: hidden;
+  background-color: #FFFFFF;
 }
 
 .fixed-header + .app-main {
