@@ -259,7 +259,9 @@ export default {
             border: 1px solid transparent;
             color: #495060;
             // background: #fff;
-            padding: 0 8px;
+            // padding: 0 8px;
+            padding: 0 4px;
+            padding-left: 14px;
             font-size: 12px;
             margin-left: 5px;
             border-top-left-radius: 5px;
