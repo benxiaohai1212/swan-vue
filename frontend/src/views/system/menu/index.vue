@@ -25,7 +25,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
@@ -45,7 +45,7 @@
           @click="toggleExpandAll"
         >展开/折叠</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table
@@ -57,25 +57,26 @@
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
       <el-table-column prop="menuName" label="菜单名称" :show-overflow-tooltip="true" width="160"></el-table-column>
-      <el-table-column prop="icon" label="图标" align="center" width="100">
+      <el-table-column prop="menuId" label="菜单编号" v-if="columns[1].visible"></el-table-column>
+      <el-table-column prop="icon" label="图标" align="center" width="100" v-if="columns[2].visible">
         <template slot-scope="scope">
           <svg-icon :icon-class="scope.row.icon" />
         </template>
       </el-table-column>
-      <el-table-column prop="orderNum" label="排序" width="60"></el-table-column>
-      <el-table-column prop="perms" label="权限标识" :show-overflow-tooltip="true"></el-table-column>
-      <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
-      <el-table-column prop="status" align="center" label="状态" width="80">
+      <el-table-column prop="orderNum" label="排序" width="60" v-if="columns[3].visible"></el-table-column>
+      <el-table-column prop="perms" label="权限标识" :show-overflow-tooltip="true" v-if="columns[4].visible"></el-table-column>
+      <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true" v-if="columns[5].visible"></el-table-column>
+      <el-table-column prop="status" align="center" label="状态" width="80" v-if="columns[6].visible">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="createTime">
+      <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[7].visible">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" v-if="columns[8].visible">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -308,6 +309,17 @@ export default {
       },
       // 表单参数
       form: {},
+      columns: [
+        { key: 0, label: `菜单名称`, visible: true, disabled: true },
+        { key: 1, label: `菜单编号`, visible: false },
+        { key: 2, label: `图标`, visible: true },
+        { key: 3, label: `排序`, visible: true },
+        { key: 4, label: `权限标识`, visible: true },
+        { key: 5, label: `组件路径`, visible: true },
+        { key: 6, label: `状态`, visible: true },
+        { key: 7, label: `创建时间`, visible: true },
+        { key: 8, label: `操作`, visible: true },
+      ],
       // 表单校验
       rules: {
         menuName: [

@@ -52,7 +52,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="danger"
@@ -130,7 +130,7 @@
 </template>
 
 <script>
-import {cleanLogininfor, delLogininfor, list, unlockLogininfor} from "@/api/monitor/logininfor";
+import { cleanLogininfor, delLogininfor, list, unlockLogininfor } from "@/api/monitor/logininfor";
 
 export default {
   name: "Logininfor",

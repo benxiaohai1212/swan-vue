@@ -51,7 +51,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
@@ -118,7 +118,7 @@
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" v-if="columns[6].visible">
+      <el-table-column label="操作" align="left" class-name="small-padding fixed-width" v-if="columns[6].visible">
         <template slot-scope="scope" v-if="scope.row.roleId !== 1">
           <el-button
             size="mini"
@@ -252,17 +252,17 @@
 </template>
 
 <script>
+import { treeselect as menuTreeselect, roleMenuTreeselect } from "@/api/system/menu";
 import {
-    addRole,
-    changeRoleStatus,
-    dataScope,
-    delRole,
-    deptTreeSelect,
-    getRole,
-    listRole,
-    updateRole
+  addRole,
+  changeRoleStatus,
+  dataScope,
+  delRole,
+  deptTreeSelect,
+  getRole,
+  listRole,
+  updateRole
 } from "@/api/system/role";
-import {roleMenuTreeselect, treeselect as menuTreeselect} from "@/api/system/menu";
 
 export default {
   name: "Role",

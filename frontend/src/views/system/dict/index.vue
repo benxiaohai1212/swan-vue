@@ -51,7 +51,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
@@ -104,32 +104,32 @@
           v-hasPermi="['system:dict:remove']"
         >刷新缓存</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="字典编号" align="center" prop="dictId" />
-      <el-table-column label="字典名称" align="left" prop="dictName" :show-overflow-tooltip="true" />
-      <el-table-column label="字典类型" align="left" :show-overflow-tooltip="true">
+      <el-table-column label="字典编号" align="center" prop="dictId" v-if="columns[0].visible" />
+      <el-table-column label="字典名称" align="left" prop="dictName" :show-overflow-tooltip="true" v-if="columns[1].visible" />
+      <el-table-column label="字典类型" align="left" :show-overflow-tooltip="true" v-if="columns[2].visible">
         <template slot-scope="scope">
           <router-link :to="'/system/dict-data/index/' + scope.row.dictId" class="link-type">
             <span>{{ scope.row.dictType }}</span>
           </router-link>
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center" prop="status">
+      <el-table-column label="状态" align="center" prop="status" v-if="columns[3].visible">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
-      <el-table-column label="备注" align="left" prop="remark" :show-overflow-tooltip="true" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="备注" align="left" prop="remark" :show-overflow-tooltip="true" v-if="columns[4].visible" />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" v-if="columns[5].visible">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="left" class-name="small-padding fixed-width" v-if="columns[6].visible">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -225,6 +225,16 @@ export default {
       },
       // 表单参数
       form: {},
+      // 列信息
+      columns: [
+        { key: 0, label: `字典编号`, visible: false },
+        { key: 1, label: `字典名称`, visible: true },
+        { key: 2, label: `字典类型`, visible: true },
+        { key: 3, label: `状态`, visible: true },
+        { key: 4, label: `备注`, visible: true },
+        { key: 5, label: `创建时间`, visible: true },
+        { key: 6, label: `操作`, visible: true },
+      ],
       // 表单校验
       rules: {
         dictName: [

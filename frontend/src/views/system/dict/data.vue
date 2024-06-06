@@ -35,7 +35,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
@@ -190,8 +190,8 @@
 </template>
 
 <script>
-import {addData, delData, getData, listData, updateData} from "@/api/system/dict/data";
-import {getType, optionselect as getDictOptionselect} from "@/api/system/dict/type";
+import { addData, delData, getData, listData, updateData } from "@/api/system/dict/data";
+import { optionselect as getDictOptionselect, getType } from "@/api/system/dict/type";
 
 export default {
   name: "Data",

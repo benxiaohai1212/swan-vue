@@ -76,7 +76,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="danger"
@@ -207,7 +207,7 @@
 </template>
 
 <script>
-import {cleanOperlog, delOperlog, list} from "@/api/monitor/operlog";
+import { cleanOperlog, delOperlog, list } from "@/api/monitor/operlog";
 
 export default {
   name: "Operlog",

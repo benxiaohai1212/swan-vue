@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
-    <el-row :gutter="20">
+    <el-row class="userContent" :gutter="20">
       <!--部门数据-->
-      <el-col :span="4" :xs="24">
+      <el-col class="leftMenu" :span="4" :xs="24">
         <div class="head-container">
           <el-input
             v-model="deptName"
@@ -27,8 +27,9 @@
           />
         </div>
       </el-col>
+      <DragAdjustWidth :styleLoc="styleLoc"></DragAdjustWidth>
       <!--用户数据-->
-      <el-col :span="20" :xs="24">
+      <el-col class="rightMenu" :span="20" :xs="24">
         <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
           <el-form-item label="用户名称" prop="userName">
             <el-input
@@ -80,7 +81,7 @@
           </el-form-item>
         </el-form>
 
-        <el-row :gutter="10" class="mb8">
+        <el-row :gutter="4" class="mb8">
           <el-col :span="1.5">
             <el-button
               type="primary"
@@ -160,7 +161,7 @@
           </el-table-column>
           <el-table-column
             label="操作"
-            align="center"
+            align="left"
             width="160"
             class-name="small-padding fixed-width"
           >
@@ -351,6 +352,7 @@ import {
   resetUserPwd,
   updateUser
 } from "@/api/system/user";
+import DragAdjustWidth from "@/components/DragAdjustWidth";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -358,7 +360,7 @@ import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 export default {
   name: "User",
   dicts: ['sys_normal_disable', 'sys_user_sex'],
-  components: { Treeselect },
+  components: { Treeselect, DragAdjustWidth },
   data() {
     return {
       // 遮罩层
@@ -459,14 +461,20 @@ export default {
             trigger: "blur"
           }
         ]
-      }
+      },
+      // 收缩侧边栏
+      styleLoc: {
+        box: "userContent",
+        left: "leftMenu",
+        right: "rightMenu",
+      },
     };
   },
   watch: {
     // 根据名称筛选部门树
     deptName(val) {
       this.$refs.tree.filter(val);
-    }
+    },
   },
   created() {
     this.getList();
@@ -474,6 +482,9 @@ export default {
     this.getConfigKey("sys.user.initPassword").then(response => {
       this.initPassword = response.msg;
     });
+  },
+  mounted() {
+
   },
   methods: {
     /** 查询用户列表 */
@@ -679,7 +690,32 @@ export default {
     // 提交上传文件
     submitFileForm() {
       this.$refs.upload.submit();
-    }
+    },
   }
 };
 </script>
+<style lang="scss" scoped>
+/*拖拽区div样式*/
+.resize {
+  display: flex;
+  align-items: center;
+	cursor: col-resize;
+	position: absolute;
+	top: 0px;
+  left: 278px;
+  height: 100vh;
+	background-color: #F3F9FF;
+  border-radius: 0px;
+	width: 10px;
+	background-size: cover;
+	background-position: center;
+	z-index: 99999;
+	font-size: 20px;
+	color: white;
+}
+
+/*拖拽区鼠标悬停样式*/
+.resize:hover {
+	color: #444444;
+}
+</style>

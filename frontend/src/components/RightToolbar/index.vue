@@ -14,7 +14,7 @@
           <el-dropdown-menu slot="dropdown">
             <template v-for="item in columns">
               <el-dropdown-item :key="item.key">
-                <el-checkbox :checked="item.visible" @change="checkboxChange($event, item.label)" :label="item.label" />
+                <el-checkbox :checked="item.visible" :disabled="item.disabled" @change="checkboxChange($event, item.label)" :label="item.label" />
               </el-dropdown-item>
             </template>
           </el-dropdown-menu>

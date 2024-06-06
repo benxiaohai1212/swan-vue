@@ -34,7 +34,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
@@ -188,11 +188,11 @@
 </template>
 
 <script>
-import {delTable, genCode, listTable, previewTable, synchDb} from "@/api/tool/gen";
-import importTable from "./importTable";
-import createTable from "./createTable";
+import { delTable, genCode, listTable, previewTable, synchDb } from "@/api/tool/gen";
 import hljs from "highlight.js/lib/highlight";
 import "highlight.js/styles/github-gist.css";
+import createTable from "./createTable";
+import importTable from "./importTable";
 
 hljs.registerLanguage("java", require("highlight.js/lib/languages/java"));
 hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));

@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-row :gutter="10">
+    <el-row :gutter="4">
       <el-col :span="8">
         <el-card style="height: calc(100vh - 125px)">
           <div slot="header">
@@ -153,12 +153,12 @@
 
 <script>
 import {
-    clearCacheAll,
-    clearCacheKey,
-    clearCacheName,
-    getCacheValue,
-    listCacheKey,
-    listCacheName
+  clearCacheAll,
+  clearCacheKey,
+  clearCacheName,
+  getCacheValue,
+  listCacheKey,
+  listCacheName
 } from "@/api/monitor/cache";
 
 export default {

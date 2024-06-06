@@ -33,7 +33,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
@@ -76,26 +76,26 @@
           v-hasPermi="['system:post:export']"
         >导出</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="postList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="岗位编号" align="left" prop="postId" />
-      <el-table-column label="岗位编码" align="left" prop="postCode" />
-      <el-table-column label="岗位名称" align="left" prop="postName" />
-      <el-table-column label="岗位排序" align="center" prop="postSort" />
-      <el-table-column label="状态" align="center" prop="status">
+      <el-table-column label="岗位编号" align="left" prop="postId" v-if="columns[0].visible" />
+      <el-table-column label="岗位编码" align="left" prop="postCode" v-if="columns[1].visible" />
+      <el-table-column label="岗位名称" align="left" prop="postName" v-if="columns[2].visible" />
+      <el-table-column label="岗位排序" align="center" prop="postSort" v-if="columns[3].visible" />
+      <el-table-column label="状态" align="center" prop="status" v-if="columns[4].visible">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" v-if="columns[5].visible">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" v-if="columns[6].visible">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -192,6 +192,16 @@ export default {
       },
       // 表单参数
       form: {},
+      // 列信息
+      columns: [
+        { key: 0, label: `岗位编号`, visible: false },
+        { key: 1, label: `岗位编码`, visible: true },
+        { key: 2, label: `岗位名称`, visible: true },
+        { key: 3, label: `岗位排序`, visible: true },
+        { key: 4, label: `状态`, visible: true },
+        { key: 5, label: `创建时间`, visible: true },
+        { key: 6, label: `操作`, visible: true },
+      ],
       // 表单校验
       rules: {
         postName: [

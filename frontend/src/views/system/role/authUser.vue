@@ -25,7 +25,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import {allocatedUserList, authUserCancel, authUserCancelAll} from "@/api/system/role";
+import { allocatedUserList, authUserCancel, authUserCancelAll } from "@/api/system/role";
 import selectUser from "./selectUser";
 
 export default {

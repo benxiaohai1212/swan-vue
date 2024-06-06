@@ -57,7 +57,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="danger"
@@ -180,8 +180,8 @@
 </template>
 
 <script>
-import {getJob} from "@/api/monitor/job";
-import {cleanJobLog, delJobLog, listJobLog} from "@/api/monitor/jobLog";
+import { getJob } from "@/api/monitor/job";
+import { cleanJobLog, delJobLog, listJobLog } from "@/api/monitor/jobLog";
 
 export default {
   name: "JobLog",

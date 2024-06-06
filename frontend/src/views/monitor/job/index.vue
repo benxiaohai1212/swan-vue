@@ -34,8 +34,7 @@
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
-
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="4" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
@@ -88,21 +87,21 @@
           v-hasPermi="['monitor:job:query']"
         >日志</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="jobList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="任务编号" width="100" align="center" prop="jobId" />
-      <el-table-column label="任务名称" align="center" prop="jobName" :show-overflow-tooltip="true" />
-      <el-table-column label="任务组名" align="center" prop="jobGroup">
+      <el-table-column label="任务编号" width="100" align="center" prop="jobId" v-if="columns[0].visible"/>
+      <el-table-column label="任务名称" align="left" prop="jobName" :show-overflow-tooltip="true" v-if="columns[1].visible" />
+      <el-table-column label="任务组名" align="left" prop="jobGroup" v-if="columns[2].visible">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_job_group" :value="scope.row.jobGroup"/>
         </template>
       </el-table-column>
-      <el-table-column label="调用目标字符串" align="center" prop="invokeTarget" :show-overflow-tooltip="true" />
-      <el-table-column label="cron执行表达式" align="center" prop="cronExpression" :show-overflow-tooltip="true" />
-      <el-table-column label="状态" align="center">
+      <el-table-column label="调用目标字符串" align="left" prop="invokeTarget" :show-overflow-tooltip="true" v-if="columns[3].visible" />
+      <el-table-column label="cron执行表达式" align="left" prop="cronExpression" :show-overflow-tooltip="true" v-if="columns[4].visible" />
+      <el-table-column label="状态" align="center" v-if="columns[5].visible">
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.status"
@@ -112,7 +111,7 @@
           ></el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" v-if="columns[6].visible" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -291,8 +290,8 @@
 </template>
 
 <script>
-import {addJob, changeJobStatus, delJob, getJob, listJob, runJob, updateJob} from "@/api/monitor/job";
-import Crontab from '@/components/Crontab'
+import { addJob, changeJobStatus, delJob, getJob, listJob, runJob, updateJob } from "@/api/monitor/job";
+import Crontab from '@/components/Crontab';
 
 export default {
   components: { Crontab },
@@ -345,7 +344,17 @@ export default {
         cronExpression: [
           { required: true, message: "cron执行表达式不能为空", trigger: "blur" }
         ]
-      }
+      },
+      // 列信息
+      columns: [
+        { key: 0, label: `任务编号`, visible: false },
+        { key: 1, label: `任务名称`, visible: true },
+        { key: 2, label: `任务组名`, visible: true },
+        { key: 3, label: `调用目标字符串`, visible: true },
+        { key: 4, label: `cron执行表达式`, visible: true },
+        { key: 5, label: `状态`, visible: true },
+        { key: 6, label: `操作`, visible: true }
+      ]
     };
   },
   created() {
