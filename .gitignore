@@ -47,3 +47,4 @@ nbdist/
 /app/release/
 .vscode/
 frontend/node
+backend/src/main/resources/static/index.html
