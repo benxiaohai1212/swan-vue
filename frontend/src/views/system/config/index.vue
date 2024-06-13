@@ -99,27 +99,27 @@
           v-hasPermi="['system:config:remove']"
         >刷新缓存</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="configList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="参数主键" align="left" prop="configId" />
-      <el-table-column label="参数名称" align="left" prop="configName" :show-overflow-tooltip="true" />
-      <el-table-column label="参数键名" align="left" prop="configKey" :show-overflow-tooltip="true" />
-      <el-table-column label="参数键值" align="left" prop="configValue" :show-overflow-tooltip="true" />
-      <el-table-column label="系统内置" align="center" prop="configType">
+      <el-table-column label="参数主键" align="left" prop="configId" v-if="columns[0].visible"/>
+      <el-table-column label="参数名称" align="left" prop="configName" :show-overflow-tooltip="true" v-if="columns[1].visible"/>
+      <el-table-column label="参数键名" align="left" prop="configKey" :show-overflow-tooltip="true" v-if="columns[2].visible"/>
+      <el-table-column label="参数键值" align="left" prop="configValue" :show-overflow-tooltip="true" v-if="columns[3].visible"/>
+      <el-table-column label="系统内置" align="center" prop="configType" v-if="columns[4].visible">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_yes_no" :value="scope.row.configType"/>
         </template>
       </el-table-column>
-      <el-table-column label="备注" align="left" prop="remark" :show-overflow-tooltip="true" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="备注" align="left" prop="remark" :show-overflow-tooltip="true" v-if="columns[5].visible"/>
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" v-if="columns[6].visible">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="left" fixed="right" class-name="small-padding fixed-width" v-if="columns[7].visible">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -218,6 +218,16 @@ export default {
       },
       // 表单参数
       form: {},
+      columns: [
+        { key: 0, label: `参数主键`, visible: false },
+        { key: 1, label: `参数名称`, visible: true },
+        { key: 2, label: `参数键名`, visible: true },
+        { key: 3, label: `参数键值`, visible: true },
+        { key: 4, label: `系统内置`, visible: true },
+        { key: 5, label: `备注`, visible: true },
+        { key: 6, label: `创建时间`, visible: true },
+        { key: 7, label: `操作`, visible: true },
+      ],
       // 表单校验
       rules: {
         configName: [

@@ -709,7 +709,7 @@ export default {
 	width: 10px;
 	background-size: cover;
 	background-position: center;
-	z-index: 99999;
+	z-index: 8;
 	font-size: 20px;
 	color: white;
 }

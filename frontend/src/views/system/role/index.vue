@@ -119,7 +119,7 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" align="left" class-name="small-padding fixed-width" v-if="columns[6].visible">
-        <template slot-scope="scope" v-if="scope.row.roleId !== 1">
+        <template slot-scope="scope" v-if="scope.row.roleId !== 3">
           <el-button
             size="mini"
             type="text"

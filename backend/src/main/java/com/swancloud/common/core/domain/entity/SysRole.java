@@ -1,16 +1,17 @@
 package com.swancloud.common.core.domain.entity;
 
+import java.util.Set;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.swancloud.common.annotation.Excel;
 import com.swancloud.common.annotation.Excel.ColumnType;
 import com.swancloud.common.core.domain.BaseEntity;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.Set;
 
 /**
  * 角色表 sys_role
@@ -112,7 +113,7 @@ public class SysRole extends BaseEntity {
     }
 
     public static boolean isAdmin(Long roleId) {
-        return roleId != null && 1L == roleId;
+        return roleId != null && 3L == roleId;
     }
 
     @NotBlank(message = "角色名称不能为空")

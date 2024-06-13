@@ -1,9 +1,21 @@
 package com.swancloud.web.controller.system;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.swancloud.common.annotation.Log;
 import com.swancloud.common.core.controller.BaseController;
@@ -22,9 +34,6 @@ import com.swancloud.system.domain.SysUserRole;
 import com.swancloud.system.service.ISysDeptService;
 import com.swancloud.system.service.ISysRoleService;
 import com.swancloud.system.service.ISysUserService;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * 角色信息
@@ -54,7 +63,8 @@ public class SysRoleController extends BaseController {
     public TableDataInfo list(SysRole role) {
         startPage();
         List<SysRole> list = roleService.selectRoleList(role);
-        return getDataTable(list);
+        List<SysRole> collect = list.stream().filter(r -> !r.isAdmin()).collect(Collectors.toList());
+        return getDataTable(collect);
     }
 
     @Log(title = "角色管理", businessType = BusinessType.EXPORT)
