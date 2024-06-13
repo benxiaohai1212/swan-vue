@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <img :src="bg" class="wave"/>
+        <img src="../assets/login/login_bg.svg" class="wave"/>
         <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
             <h3 class="title">后台管理系统</h3>
             <el-form-item prop="username">
@@ -36,7 +36,7 @@
                     <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon"/>
                 </el-input>
                 <div class="login-code">
-                    <img :src="codeUrl" @click="getCode" class="login-code-img"/>
+                <img :src="codeUrl" @click="getCode" class="login-code-img"/>
                 </div>
             </el-form-item>
             <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
@@ -64,9 +64,9 @@
 </template>
 
 <script>
-import {getCodeImg} from "@/api/login";
+import { getCodeImg } from "@/api/login";
+import { decrypt, encrypt } from '@/utils/jsencrypt';
 import Cookies from "js-cookie";
-import {decrypt, encrypt} from '@/utils/jsencrypt'
 
 export default {
     name: "Login",
@@ -162,18 +162,20 @@ export default {
 .login {
     width: 100vw;
     height: 100vh;
-    display: grid;
     grid-template-columns: repeat(2,1fr);
     grid-gap: 18rem;
     padding: 0 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    //background-image: url("../assets/images/login-background.jpg");
     background-image: url("../assets/login/bg.png");
     background-size: cover;
     background-color: #e1ecf1;
+    background-position: 60%;
+
+    .wave {
+        width: 30%;
+    }
 }
 
 .title {
