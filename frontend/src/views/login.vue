@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <img src="../assets/login/login_bg.svg" class="wave"/>
+        <img src="../assets/login/login_bg.svg" alt="图片" class="wave"/>
         <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
             <h3 class="title">后台管理系统</h3>
             <el-form-item prop="username">
@@ -36,7 +36,7 @@
                     <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon"/>
                 </el-input>
                 <div class="login-code">
-                <img :src="codeUrl" @click="getCode" class="login-code-img"/>
+                <img :src="codeUrl" @click="getCode" alt="验证码" class="login-code-img"/>
                 </div>
             </el-form-item>
             <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
