@@ -82,6 +82,7 @@ export default {
                 // "background-color": this.theme,
                 // "border-color": this.theme
                 "background": 'linear-gradient(to bottom, #FFFFFF 1%, #F3F9FF 99%)',
+                // 'box-shadow': 'rgb(243, 249, 255) 0px 2px 2px;'
             };
         },
         isAffix(tag) {
@@ -246,7 +247,7 @@ export default {
     width: 100%;
     background: #fff;
     border-bottom: 1px solid #d8dce5;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+    // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
 
     .tags-view-wrapper {
         .tags-view-item {
@@ -269,7 +270,8 @@ export default {
             margin-top: 6px;
 
             &:first-of-type {
-                margin-left: 15px;
+                margin-left: 10px;
+                padding-left: 5px;;
             }
 
             &:last-of-type {
@@ -282,7 +284,7 @@ export default {
                 // border-color: #42b983;
                 color: #495060;
                 border-width: 1px 1px 0px 1px;
-                border-color: #d8dce5;
+                border-color: #d8dce5 #d8dce5 transparent #d8dce5 ;
                 border-style: solid;
 
                 &::before {

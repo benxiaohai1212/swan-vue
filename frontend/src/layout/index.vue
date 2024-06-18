@@ -7,7 +7,7 @@
         <navbar/>
         <tags-view v-if="needTagsView"/>
       </div>
-      <div class="body-container">
+      <div class="body-container" :class="!needTagsView? 'tagsView':''">
         <app-main/>
       </div>
       <right-panel>
@@ -60,7 +60,7 @@ export default {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     }
-  }
+  },
 }
 </script>
 
@@ -81,6 +81,17 @@ export default {
     &.mobile.openSidebar {
       position: fixed;
       top: 0;
+    }
+    .fixed-header + .body-container {
+      top: 84px;
+      position: relative;
+    }
+    .fixed-header + .tagsView {
+      top: 50px;
+      position: relative;
+    }
+    .tagsView .app-main {
+      min-height: calc(100vh - 70px);
     }
   }
 
