@@ -702,7 +702,7 @@ export default {
 	cursor: col-resize;
 	position: absolute;
 	top: 0px;
-  left: 278px;
+  left: 225px;
   height: 100vh;
 	background-color: #F3F9FF;
   border-radius: 0px;
