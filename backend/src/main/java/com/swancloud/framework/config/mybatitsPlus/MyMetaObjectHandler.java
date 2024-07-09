@@ -16,6 +16,7 @@ import java.util.Date;
  * 字段上方需要添加@TableField注解
  */
 public class MyMetaObjectHandler implements MetaObjectHandler {
+
     @Override
     public void insertFill(MetaObject metaObject) {
         this.strictInsertFill(metaObject, "createTime", Date.class, new Date());

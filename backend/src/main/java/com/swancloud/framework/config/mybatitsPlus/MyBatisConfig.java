@@ -1,4 +1,4 @@
-package com.swancloud.framework.config;
+package com.swancloud.framework.config.mybatitsPlus;
 
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -31,6 +31,7 @@ import java.util.List;
  * @author ruoyi
  */
 //@Configuration
+@Deprecated
 public class MyBatisConfig {
 
     @Autowired
