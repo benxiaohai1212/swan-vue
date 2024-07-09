@@ -1,24 +1,5 @@
 package com.swancloud.web.controller.system;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.swancloud.common.annotation.Log;
 import com.swancloud.common.core.controller.BaseController;
 import com.swancloud.common.core.domain.AjaxResult;
@@ -34,6 +15,18 @@ import com.swancloud.system.service.ISysDeptService;
 import com.swancloud.system.service.ISysPostService;
 import com.swancloud.system.service.ISysRoleService;
 import com.swancloud.system.service.ISysUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 用户信息
@@ -42,6 +35,7 @@ import com.swancloud.system.service.ISysUserService;
  */
 @RestController
 @RequestMapping("/system/user")
+@Api(tags = "用户信息")
 public class SysUserController extends BaseController {
     @Autowired
     private ISysUserService userService;
@@ -60,6 +54,7 @@ public class SysUserController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:user:list')")
     @GetMapping("/list")
+    @ApiOperation(value = "获取用户列表")
     public TableDataInfo list(SysUser user) {
         startPage();
         List<SysUser> list = userService.selectUserList(user);

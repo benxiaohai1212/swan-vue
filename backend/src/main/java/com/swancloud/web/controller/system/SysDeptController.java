@@ -1,11 +1,5 @@
 package com.swancloud.web.controller.system;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
 import com.swancloud.common.annotation.Log;
 import com.swancloud.common.constant.UserConstants;
 import com.swancloud.common.core.controller.BaseController;
@@ -14,6 +8,13 @@ import com.swancloud.common.core.domain.entity.SysDept;
 import com.swancloud.common.enums.BusinessType;
 import com.swancloud.common.utils.StringUtils;
 import com.swancloud.system.service.ISysDeptService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/dept")
+@Api(tags = "部门管理")
 public class SysDeptController extends BaseController {
     @Autowired
     private ISysDeptService deptService;
@@ -33,6 +35,11 @@ public class SysDeptController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:dept:list')")
     @GetMapping("/list")
+    @ApiOperation(notes = "获取部门列表",
+            value = "获取部门列表",
+            httpMethod = "GET",
+            produces = "application/json",
+            consumes = "application/json")
     public AjaxResult list(SysDept dept) {
         List<SysDept> depts = deptService.selectDeptList(dept);
         return success(depts);

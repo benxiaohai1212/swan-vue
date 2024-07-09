@@ -24,7 +24,7 @@
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
         <druid.version>1.2.20</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
-        <swagger.version>2.0.9</swagger.version>
+        <swagger.version>3.0.3</swagger.version>
         <kaptcha.version>2.3.3</kaptcha.version>
         <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
         <fastjson.version>2.0.43</fastjson.version>
@@ -81,15 +81,12 @@
                 <version>${swagger.version}</version>
                 <exclusions>
                     <exclusion>
-                        <artifactId>swagger-annotations</artifactId>
                         <groupId>io.swagger</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>guava</artifactId>
-                        <groupId>com.google.guava</groupId>
+                        <artifactId>swagger-models</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
+
             <!-- io常用工具类 -->
             <dependency>
                 <groupId>commons-io</groupId>
@@ -158,6 +155,16 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.jsqlparser</groupId>
+                    <artifactId>jsqlparser</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- 自定义验证注解 -->
         <dependency>
@@ -291,16 +298,16 @@
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
         <!-- swagger3-->
-        <!-- 防止进入swagger页面报类型转换错误，排除3.0.0中的引用，手动增加1.6.2版本 -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.9</version>
         </dependency>
+
+        <!-- 防止进入swagger页面报类型转换错误，排除3.0.0中的引用，手动增加1.6.2版本 -->
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-annotations</artifactId>
-            <version>3.0.3</version>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>1.6.2</version>
         </dependency>
         <!-- Mysql驱动包 -->
         <dependency>
@@ -321,6 +328,16 @@
                     <artifactId>mybatis-spring</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.9</version>
         </dependency>
     </dependencies>
 
@@ -414,39 +431,6 @@
                     <warName>${project.artifactId}</warName>
                 </configuration>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>9.3</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>io.spring.javaformat</groupId>
-                        <artifactId>spring-javaformat-checkstyle</artifactId>
-                        <version>0.0.41</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>checkstyle-validation</id>
-                        <phase>validate</phase>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <configLocation>io/spring/javaformat/checkstyle/checkstyle.xml</configLocation>
-                            <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                        </configuration>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
         </plugins>
     </build>
 
