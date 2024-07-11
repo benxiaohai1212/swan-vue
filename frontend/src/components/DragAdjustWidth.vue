@@ -1,22 +1,40 @@
 <template>
-	<div class="resize" title="收缩侧边栏">⋮</div>
+	<div class="resize" title="收缩侧边栏" :style="{'left': (leftSize - 5) + 'px'}">⋮</div>
 </template>
 <script>
 export default {
 	name: "dragAdjustWidth",
-	props: ["styleLoc"],
+	props: {
+		styleLoc: {
+			type: Object
+		},
+		leftSize: {
+			type: Number,
+			default: 230
+		}
+	},
 	data() {
 		return {
-			screenWidth: document.body.clientWidth
+			screenWidth: document.body.clientWidth,
 		};
 	},
-	created() { },
+	created() {	this.leftMenuSize = this.leftSize; },
 	mounted() {
 		this.dragControllerDiv();
-		let _this = this; //赋值vue的this
+		let that = this; // 赋值vue的this
+		let styleLoc = (that.styleLoc)
 		window.addEventListener("resize", () => {
 			this.screenWidth = document.body.clientWidth;
 		});
+		let leftMenu = document.getElementsByClassName(styleLoc.left);
+		if (leftMenu) {
+			leftMenu[0].style.width = that.leftSize + 'px';
+		}
+		let userContent = document.getElementsByClassName(styleLoc.box);
+		let rightMenu = document.getElementsByClassName(styleLoc.right);
+		if (rightMenu) {
+			rightMenu[0].style.width = userContent[0].offsetWidth - that.leftSize + 'px'
+		}
 	},
 	watch: {
 		screenWidth(newVal, oldVal) {
@@ -30,7 +48,7 @@ export default {
 			for (let i = 0; i < resize.length; i++) {
 				mid[i].style.width = newVal - moveLen + "px";
 			}
-		}
+		},
 	},
 	components: {},
 	methods: {
@@ -98,20 +116,20 @@ export default {
 <style lang="scss" scoped>
 /*拖拽区div样式*/
 .resize {
+	display: flex;
+	align-items: center;
 	cursor: col-resize;
-	// float: left;
-	position: relative;
-	top: 300px;
-	background-color: #d6d6d6;
-	border-radius: 5px;
+	position: absolute;
+	top: 0px;
 	margin-top: -10px;
+	height: 100vh;
+	background-color: #F3F9FF;
+	border-radius: 0px;
 	width: 10px;
-	height: 50px;
-	line-height: 50px;
 	background-size: cover;
 	background-position: center;
-	/*z-index: 99999;*/
-	font-size: 32px;
+	z-index: 8;
+	font-size: 20px;
 	color: white;
 }
 

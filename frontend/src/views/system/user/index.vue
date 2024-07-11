@@ -27,7 +27,7 @@
           />
         </div>
       </el-col>
-      <DragAdjustWidth :styleLoc="styleLoc"></DragAdjustWidth>
+      <DragAdjustWidth :styleLoc="styleLoc" :leftSize="230"></DragAdjustWidth>
       <!--用户数据-->
       <el-col class="rightMenu" :span="20" :xs="24">
         <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
@@ -343,14 +343,14 @@
 
 <script>
 import {
-  addUser,
-  changeUserStatus,
-  delUser,
-  deptTreeSelect,
-  getUser,
-  listUser,
-  resetUserPwd,
-  updateUser
+	addUser,
+	changeUserStatus,
+	delUser,
+	deptTreeSelect,
+	getUser,
+	listUser,
+	resetUserPwd,
+	updateUser
 } from "@/api/system/user";
 import DragAdjustWidth from "@/components/DragAdjustWidth";
 import { getToken } from "@/utils/auth";
@@ -694,28 +694,3 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-/*拖拽区div样式*/
-.resize {
-  display: flex;
-  align-items: center;
-	cursor: col-resize;
-	position: absolute;
-	top: 0px;
-  left: 225px;
-  height: 100vh;
-	background-color: #F3F9FF;
-  border-radius: 0px;
-	width: 10px;
-	background-size: cover;
-	background-position: center;
-	z-index: 8;
-	font-size: 20px;
-	color: white;
-}
-
-/*拖拽区鼠标悬停样式*/
-.resize:hover {
-	color: #444444;
-}
-</style>
