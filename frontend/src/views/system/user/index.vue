@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" id="container">
     <el-row class="userContent" :gutter="20">
       <!--部门数据-->
       <el-col class="leftMenu" :span="4" :xs="24">

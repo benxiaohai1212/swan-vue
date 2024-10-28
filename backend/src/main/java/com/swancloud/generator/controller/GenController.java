@@ -105,7 +105,7 @@ public class GenController extends BaseController {
         String[] tableNames = Convert.toStrArray(tables);
         // 查询表信息
         List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames);
-        genTableService.importGenTable(tableList, SecurityUtils.getUsername());
+        genTableService.importGenTable(tableList, SecurityUtils.getUserId());
         return success();
     }
 
@@ -130,7 +130,7 @@ public class GenController extends BaseController {
                 }
             }
             List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames.toArray(new String[tableNames.size()]));
-            String operName = SecurityUtils.getUsername();
+            Long operName = SecurityUtils.getUserId();
             genTableService.importGenTable(tableList, operName);
             return AjaxResult.success();
         } catch (Exception e) {

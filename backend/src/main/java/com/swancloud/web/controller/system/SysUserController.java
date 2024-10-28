@@ -77,7 +77,7 @@ public class SysUserController extends BaseController {
     public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
         List<SysUser> userList = util.importExcel(file.getInputStream());
-        String operName = getUsername();
+        Long operName = getUserId();
         String message = userService.importUser(userList, updateSupport, operName);
         return success(message);
     }
@@ -122,7 +122,7 @@ public class SysUserController extends BaseController {
         } else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
             return error("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
-        user.setCreateBy(getUsername());
+        user.setCreateBy(getUserId());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         return toAjax(userService.insertUser(user));
     }
@@ -143,7 +143,7 @@ public class SysUserController extends BaseController {
         } else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
             return error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
-        user.setUpdateBy(getUsername());
+        user.setUpdateBy(getUserId());
         return toAjax(userService.updateUser(user));
     }
 
@@ -170,7 +170,7 @@ public class SysUserController extends BaseController {
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
-        user.setUpdateBy(getUsername());
+        user.setUpdateBy(getUserId());
         return toAjax(userService.resetPwd(user));
     }
 
@@ -183,7 +183,7 @@ public class SysUserController extends BaseController {
     public AjaxResult changeStatus(@RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
-        user.setUpdateBy(getUsername());
+        user.setUpdateBy(getUserId());
         return toAjax(userService.updateUserStatus(user));
     }
 

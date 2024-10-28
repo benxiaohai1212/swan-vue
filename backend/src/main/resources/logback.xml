@@ -5,7 +5,7 @@
     <!-- 日志输出格式 -->
 	<!--<property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />-->
 	<property name="log.pattern" value="%d{HH:mm:ss} [%thread] %magenta(%-5level) [%green(%logger{30}):%blue(%line)] >>> %cyan(%msg) %n" />
-
+    <property name="log.file" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID} [%16.16t] %-40.40logger{39}: %msg%n" />
 
 	<!-- 控制台输出 -->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -20,10 +20,13 @@
         <!-- 循环政策：基于时间创建日志文件 -->
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
-			<fileNamePattern>${log.path}/sys-info.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>${log.path}/sys-info.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
 			<!-- 日志最大的历史 60天 -->
 			<maxHistory>60</maxHistory>
-		</rollingPolicy>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10KB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
 		<encoder>
 			<pattern>${log.pattern}</pattern>
 		</encoder>
@@ -74,7 +77,7 @@
     </appender>
 	
 	<!-- 系统模块日志级别控制  -->
-	<logger name="com.ruoyi" level="info" />
+	<logger name="com.swancloud" level="info" />
 	<!-- Spring日志级别控制  -->
 	<logger name="org.springframework" level="warn" />
 

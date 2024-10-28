@@ -159,7 +159,7 @@ public class GenTableServiceImpl implements IGenTableService {
      */
     @Override
     @Transactional
-    public void importGenTable(List<GenTable> tableList, String operName) {
+    public void importGenTable(List<GenTable> tableList, Long operName) {
         try {
             for (GenTable table : tableList) {
                 String tableName = table.getTableName();
