@@ -414,12 +414,12 @@ export default {
       // 表单参数
       form: {},
       columns: [
-          #foreach ($column in $columns)
-              #set($index = $foreach.index)
-              #if($column.isList)
-              { key: $index, label: `$column.columnComment`, visible: true },
-              #end
+      #foreach ($column in $columns)
+          #set($index = $foreach.index)
+          #if($column.isList)
+          { key: $index, label: `$column.columnComment`, visible: true },
           #end
+      #end
       ],
       // 表单校验
       rules: {
