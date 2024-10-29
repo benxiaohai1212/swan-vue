@@ -74,17 +74,17 @@ public class GenConstants {
     /**
      * 页面不需要显示的列表字段
      */
-    public static final String[] COLUMNNAME_NOT_LIST = {"id", "create_by", "create_time", "del_flag", "update_by", "update_time"};
+    public static final String[] COLUMNNAME_NOT_LIST = {"id", "create_by", "create_time", "update_by", "update_time", "del_flag"};
 
     /**
      * 页面不需要查询字段
      */
-    public static final String[] COLUMNNAME_NOT_QUERY = {"id", "create_by", "create_time", "del_flag", "update_by", "update_time", "remark"};
+    public static final String[] COLUMNNAME_NOT_QUERY = {"id", "create_by", "create_time", "update_by", "update_time", "remark", "del_flag"};
 
     /**
      * Entity基类字段
      */
-    public static final String[] BASE_ENTITY = {"id", "createBy", "createTime", "updateBy", "updateTime", "remark", "del_flag"};
+    public static final String[] BASE_ENTITY = {"id", "createBy", "createTime", "updateBy", "updateTime", "remark", "delFlag"};
 
     /**
      * Tree基类字段
