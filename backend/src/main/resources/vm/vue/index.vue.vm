@@ -417,7 +417,11 @@ export default {
       #foreach ($column in $columns)
           #set($index = $foreach.index)
           #if($column.isList)
+          #if($column.pk)
+          { key: $index, label: `$column.columnComment`, visible: true, switchable: true },
+          #else
           { key: $index, label: `$column.columnComment`, visible: true },
+          #end
           #end
       #end
       ],

@@ -119,7 +119,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
 #if($table.sub)
         ${className}Mapper.delete${subClassName}By${subTableFkClassName}s(${pkColumn.javaField}s);
 #end
-        return this.lambdaUpdate().set(${ClassName}::getDelFlag, true).in(${ClassName}::getId, ${pkColumn.javaField}s).update()
+        return this.lambdaUpdate().set(${ClassName}::getDelFlag, true).in(${ClassName}::getId, Arrays.asList(${pkColumn.javaField}s)).update();
     }
 
     /**

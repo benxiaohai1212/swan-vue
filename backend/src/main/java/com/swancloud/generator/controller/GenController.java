@@ -16,19 +16,17 @@ import com.swancloud.generator.domain.GenTable;
 import com.swancloud.generator.domain.GenTableColumn;
 import com.swancloud.generator.service.IGenTableColumnService;
 import com.swancloud.generator.service.IGenTableService;
-
-import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 代码生成 操作处理
@@ -97,6 +95,8 @@ public class GenController extends BaseController {
 
     /**
      * 导入表结构（保存）
+     * @param tables
+     * @return 
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:import')")
     @Log(title = "代码生成", businessType = BusinessType.IMPORT)
@@ -111,6 +111,8 @@ public class GenController extends BaseController {
 
     /**
      * 创建表结构（保存）
+     * @param sql
+     * @return 
      */
     @PreAuthorize("@ss.hasRole('admin')")
     @Log(title = "创建表", businessType = BusinessType.OTHER)
@@ -129,7 +131,7 @@ public class GenController extends BaseController {
                     }
                 }
             }
-            List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames.toArray(new String[tableNames.size()]));
+            List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames.toArray(new String[0]));
             Long operName = SecurityUtils.getUserId();
             genTableService.importGenTable(tableList, operName);
             return AjaxResult.success();
@@ -141,6 +143,8 @@ public class GenController extends BaseController {
 
     /**
      * 修改保存代码生成业务
+     * @param genTable
+     * @return 
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:edit')")
     @Log(title = "代码生成", businessType = BusinessType.UPDATE)
@@ -153,6 +157,8 @@ public class GenController extends BaseController {
 
     /**
      * 删除代码生成
+     * @param tableIds
+     * @return 
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:remove')")
     @Log(title = "代码生成", businessType = BusinessType.DELETE)
@@ -164,6 +170,9 @@ public class GenController extends BaseController {
 
     /**
      * 预览代码
+     * @param tableId
+     * @return 
+     * @throws java.io.IOException 
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:preview')")
     @GetMapping("/preview/{tableId}")
@@ -174,17 +183,24 @@ public class GenController extends BaseController {
 
     /**
      * 生成代码（下载方式）
+     * @param response
+     * @param tableName
+     * @throws java.io.IOException
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:code')")
     @Log(title = "代码生成", businessType = BusinessType.GENCODE)
     @GetMapping("/download/{tableName}")
     public void download(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
         byte[] data = genTableService.downloadCode(tableName);
-        genCode(response, data);
+        String[] tableNames = new String[1];
+        tableNames[0] = tableName;
+        genCode(response, data, tableNames);
     }
 
     /**
      * 生成代码（自定义路径）
+     * @param tableName
+     * @return 
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:code')")
     @Log(title = "代码生成", businessType = BusinessType.GENCODE)
@@ -196,6 +212,8 @@ public class GenController extends BaseController {
 
     /**
      * 同步数据库
+     * @param tableName
+     * @return 
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:edit')")
     @Log(title = "代码生成", businessType = BusinessType.UPDATE)
@@ -207,6 +225,9 @@ public class GenController extends BaseController {
 
     /**
      * 批量生成代码
+     * @param response
+     * @param tables
+     * @throws java.io.IOException
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:code')")
     @Log(title = "代码生成", businessType = BusinessType.GENCODE)
@@ -214,17 +235,21 @@ public class GenController extends BaseController {
     public void batchGenCode(HttpServletResponse response, String tables) throws IOException {
         String[] tableNames = Convert.toStrArray(tables);
         byte[] data = genTableService.downloadCode(tableNames);
-        genCode(response, data);
+        genCode(response, data,tableNames);
     }
 
     /**
      * 生成zip文件
      */
-    private void genCode(HttpServletResponse response, byte[] data) throws IOException {
+    private void genCode(HttpServletResponse response, byte[] data,String[] tableNames) throws IOException {
+        String fileName = "ruoyi.zip";
+        if (tableNames.length == 1) {
+            fileName = tableNames[0] + ".zip";
+        }
         response.reset();
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
-        response.setHeader("Content-Disposition", "attachment; filename=\"ruoyi.zip\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
         IOUtils.write(data, response.getOutputStream());

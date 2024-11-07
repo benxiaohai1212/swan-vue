@@ -271,6 +271,7 @@ export default {
     },
     /** 生成代码操作 */
     handleGenTable(row) {
+      let fileName = "ruoyi.zip";
       const tableNames = row.tableName || this.tableNames;
       if (tableNames == "") {
         this.$modal.msgError("请选择要生成的数据");
@@ -281,7 +282,12 @@ export default {
           this.$modal.msgSuccess("成功生成到自定义路径：" + row.genPath);
         });
       } else {
-        this.$download.zip("/tool/gen/batchGenCode?tables=" + tableNames, "ruoyi.zip");
+        if (typeof tableNames === 'string') {
+            fileName = tableNames + '.zip';
+        } else if (Array.isArray(tableNames)) {
+            fileName = "ruoyi.zip";
+        }
+        this.$download.zip("/tool/gen/batchGenCode?tables=" + tableNames, fileName);
       }
     },
     /** 同步数据库操作 */
