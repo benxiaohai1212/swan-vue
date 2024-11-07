@@ -39,7 +39,7 @@
         <!-- springboot 后端 -->
         <module>backend</module>
         <!-- vue 前端 -->
-        <module>frontend</module>
+<!--        <module>frontend</module>-->
     </modules>
 
     <profiles>
