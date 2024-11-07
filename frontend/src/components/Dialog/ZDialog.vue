@@ -27,7 +27,7 @@
         <div class="icons">
           <i
             title="缩小"
-            class="iconfont icon-minus"
+            class="el-icon-minus"
             style="font-size: 24px"
             @click="minimize"
           ></i>
@@ -35,7 +35,7 @@
             title="放大"
             :class="
               isfullscreen
-                ? 'iconfont icon-full-screen-exit'
+                ? 'el-icon-full-screen'
                 : 'iconfont icon-full-screen'
             "
             style="font-size: 24px"
@@ -43,7 +43,7 @@
           ></i>
           <i
             title="关闭"
-            class="iconfont icon-close"
+            class="el-icon-close"
             style="font-size: 24px"
             @click="closeDialog"
           ></i>
@@ -56,14 +56,14 @@
         <div class="icons">
           <i
            title="放大"
-            class="iconfont icon-full-screen"
+            class="el-icon-full-screen"
             style="font-size: 24px"
             @click="minimize"
           ></i>
         </div>
         <i
         title="关闭"
-          class="iconfont icon-close"
+          class="el-icon-close"
           style="font-size: 24px"
           @click="closeDialog"
         ></i>
@@ -315,7 +315,7 @@ export default {
   .el-dialog {
     .el-dialog__header {
       width: 100%;
-      padding: 10px 10px 10px !important;
+      padding: 15px 10px 15px !important;
       display: flex;
       border-bottom: 1px solid #ccc;
       @extend .no_select;
@@ -347,10 +347,6 @@ export default {
           i:hover {
             background: #dcdfe6;
             cursor: pointer;
-          }
-          .el-icon-close:hover {
-            background: #f00;
-            color: #fff;
           }
         }
       }
@@ -389,10 +385,6 @@ export default {
             background: #dcdfe6;
             cursor: pointer;
           }
-          .el-icon-close:hover {
-            background: #f00;
-            color: #fff;
-          }
         }
         i:hover {
           cursor: pointer;
@@ -426,7 +418,7 @@ export default {
         }
       }
       .dialogFooter {
-        padding: 5px 15px;
+        padding: 10px 15px;
         border-top: 1px solid #ccc;
         text-align: right;
         .el-button {
