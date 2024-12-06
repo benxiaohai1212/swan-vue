@@ -44,6 +44,17 @@
 18.  连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
 19.  增加flyway： 只需提供数据库链接地址及权限即可运行后台管理项目。
 
+## docker一键部署
+1. 编译项目：
+```
+mvn clean compile package -Dmaven.test.skip=true
+```
+2. 构建镜像并部署：
+```
+docker-compose up -d
+```
+**注意：** 以上操作均在项目的根目录下执行
+
 ## 在线体验
 
 - admin/admin123  
